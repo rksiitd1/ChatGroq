@@ -6,6 +6,14 @@ const nextConfig = {
   },
   basePath: '/ChatGroq',
   assetPrefix: '/ChatGroq/',
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://idgkgphyyujwkspaktcn.supabase.co/functions/v1/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

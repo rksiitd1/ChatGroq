@@ -62,9 +62,12 @@ export default function Chat() {
     setIsTyping(true);
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('https://idgkgphyyujwkspaktcn.supabase.co/functions/v1/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}` // if you're using Supabase auth
+        },
         body: JSON.stringify({ message }),
       });
       const data = await response.json();
