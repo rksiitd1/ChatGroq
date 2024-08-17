@@ -39,6 +39,7 @@ jobs:
         branch: gh-pages
         folder: out
         clean: true
+        token: ${{ secrets.PAT_TOKEN }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
