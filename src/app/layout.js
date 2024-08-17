@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <base href={process.env.NEXT_PUBLIC_BASE_PATH || '/'} />
+        <base href="/ChatGroq/" />
       </head>
       <body className="bg-gray-100">
         <main className="container mx-auto p-4">

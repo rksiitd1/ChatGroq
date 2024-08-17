@@ -26,7 +26,7 @@ export default function Chat() {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        router.push(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/login`);
+        router.push('/login');
       }
     };
     checkUser();
@@ -82,7 +82,7 @@ export default function Chat() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/`);
+    router.push('/');
   };
 
   const toggleDarkMode = () => {

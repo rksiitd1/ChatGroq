@@ -51,7 +51,7 @@ export default function Home() {
               </button>
             ) : (
               <button
-                onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/login`)}
+                onClick={() => router.push('/login')}
                 className="bg-white text-blue-500 px-4 py-2 rounded-full hover:bg-blue-100 transition duration-300"
               >
                 Login / Sign Up
@@ -90,7 +90,7 @@ export default function Home() {
             </motion.button>
           ) : (
             <motion.button
-              onClick={() => router.push(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/login`)}
+              onClick={() => router.push('/login')}
               className="bg-white text-blue-500 px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-100 transition duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -125,7 +125,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-white mb-4">Ready to experience the future of AI?</h2>
           <p className="text-xl text-white mb-8">Join thousands of users already chatting with ChatGroq</p>
           <motion.button
-            onClick={() => router.push(session ? '/chat' : `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/login`)}
+            onClick={() => router.push(session ? '/chat' : '/login')}
             className="bg-white text-blue-500 px-8 py-3 rounded-full text-lg font-semibold hover:bg-blue-100 transition duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
