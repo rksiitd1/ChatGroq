@@ -3,18 +3,21 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-    - name: Setup Node
-      uses: actions/setup-node@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
       with:
         node-version: '18'
+        cache: 'npm'
 
     - name: Install dependencies
       run: npm ci
@@ -22,17 +25,38 @@ jobs:
     - name: Build
       run: npm run build
       env:
+        NEXT_PUBLIC_BASE_PATH: /ChatGroq
         NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        NEXT_PUBLIC_BASE_PATH: /your-repo-name
 
     - name: Export
       run: npm run export
       env:
-        NEXT_PUBLIC_BASE_PATH: /your-repo-name
+        NEXT_PUBLIC_BASE_PATH: /ChatGroq
+
+    - name: Add .nojekyll file
+      run: touch out/.nojekyll
 
     - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+      uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./out
+        branch: gh-pages
+        folder: out
+        clean: true
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: production-files
+        path: ./out
+
+    - name: Purge Cloudflare cache
+      env:
+        CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+        CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
+      if: env.CLOUDFLARE_ZONE != null && env.CLOUDFLARE_TOKEN != null
+      run: |
+        curl -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE/purge_cache" \
+        -H "Authorization: Bearer $CLOUDFLARE_TOKEN" \
+        -H "Content-Type: application/json" \
+        --data '{"purge_everything":true}'
