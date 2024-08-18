@@ -68,8 +68,6 @@ export default function Chat() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message }),
-        mode: 'cors',
-        credentials: 'include',
       });
       const data = await response.json();
       if (data.error) throw new Error(data.error);
