@@ -66,7 +66,6 @@ export default function Chat() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}` // if you're using Supabase auth
         },
         body: JSON.stringify({ message }),
       });
