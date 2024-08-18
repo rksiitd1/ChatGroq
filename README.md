@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ChatGroq
 
-## Getting Started
+ChatGroq is an AI-powered chat application built with Next.js, leveraging Supabase for backend functions and the Groq API for natural language processing.
 
-First, run the development server:
+## Features
 
-```bash
+- Real-time AI-powered chat interface
+- Serverless backend using Supabase Edge Functions
+- Responsive design for desktop and mobile use
+- Integration with Groq's advanced language model
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- Node.js (v14 or later)
+- npm (v6 or later)
+- A Supabase account
+- A Groq API key
+
+## Setup
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/rksiitd1/ChatGroq.git
+   cd ChatGroq
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Set up Supabase:
+   - Create a new project in Supabase
+   - Install Supabase CLI: `npm install -g supabase`
+   - Initialize Supabase in your project: `supabase init`
+   - Link your project: `supabase link --project-ref YOUR_PROJECT_REF`
+
+4. Deploy the Supabase function:
+   ```
+   supabase functions deploy chat --no-verify-jwt
+   ```
+
+5. Set your Groq API key as a secret in Supabase:
+   ```
+   supabase secrets set GROQ_API_KEY=your_actual_groq_api_key
+   ```
+
+6. Update the Supabase URL in `src/app/chat/page.js` with your project URL.
+
+7. Create a `.env.local` file in the root directory and add your Supabase URL and anon key:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+## Running Locally
+
+To run the project locally:
+
+```
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project is configured for deployment on GitHub Pages. Push your changes to the main branch, and GitHub Actions will automatically deploy your updates.
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
